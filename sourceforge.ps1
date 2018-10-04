@@ -11,7 +11,12 @@ class SourceForge {
 
     
     [void] GetLatestRelease() {
+        $originalSecurityProtocol = [Net.ServicePointManager]::SecurityProtocol
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        
         $this.GetLatestRelease('https://sourceforge.net/projects/{0}/best_release.json')
+        
+        [Net.ServicePointManager]::SecurityProtocol = $originalSecurityProtocol
     }
 
 
